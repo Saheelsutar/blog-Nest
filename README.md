@@ -33,7 +33,7 @@ blog-Nest/
 
 ### **1️⃣ Clone the Repository**
 ```sh
-git clone https://github.com/your-username/blog-Nest.git
+git clone https://github.com/Saheelsutar/blog-Nest.git
 cd blog-Nest
 ```
 
