@@ -1,6 +1,7 @@
 'use client'
 import React, { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { BackgroundBeamsWithCollision } from '@/components/ui/background-beams-with-collision';
 
 const Page = () => {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -37,12 +38,13 @@ const Page = () => {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center px-4 sm:px-6 lg:px-8 bg-gray-50">
-      <div className="w-full max-w-md space-y-8 bg-white p-6 rounded-lg shadow-md">
-        <h2 className="text-center text-2xl font-bold text-gray-900">Sign in to your account</h2>
+    <BackgroundBeamsWithCollision className='bg-slate-950 min-h-screen'>
+    <div className="flex relative min-h-screen items-center justify-center px-4 sm:px-6 lg:px-8 w-full">
+      <div className="md:w-full w-[90%] md:max-w-md space-y-8 bg-slate-900 p-6 rounded-lg shadow-md">
+        <h2 className="text-center text-2xl font-bold bg-clip-text bg-no-repeat text-transparent bg-gradient-to-r py-4 from-purple-500 via-violet-500 to-pink-500 [text-shadow:0_0_rgba(0,0,0,0.1)]">Sign in to your account</h2>
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email address</label>
+            <label htmlFor="email" className="block text-sm font-medium text-white">Email address</label>
             <input 
               onChange={handleChange} 
               type="email" 
@@ -55,7 +57,7 @@ const Page = () => {
             />
           </div>
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
+            <label htmlFor="password" className="block text-sm font-medium text-white">Password</label>
             <input 
               onChange={handleChange} 
               type="password" 
@@ -75,6 +77,7 @@ const Page = () => {
         </form>
       </div>
     </div>
+    </BackgroundBeamsWithCollision>
   );
 };
 

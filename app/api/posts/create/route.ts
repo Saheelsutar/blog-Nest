@@ -6,7 +6,14 @@ import fs from "fs";
 import path from "path";
 import { writeFile } from "fs/promises";
 import { cookies } from "next/headers";
+import cloudinary   from 'cloudinary';
 
+// Cloudinary Configuration
+cloudinary.v2.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 export async function POST(req: NextRequest) {
   try {
     await connectDB();
@@ -32,21 +39,21 @@ export async function POST(req: NextRequest) {
     if (!title || !content || !authorName) {
       return NextResponse.json({ message: "Title,author name and content are required" }, { status: 400 });
     }
-
     let imageUrl = null;
     if (file) {
       const buffer = Buffer.from(await file.arrayBuffer());
-      const uploadDir = path.join(process.cwd(), "public/uploads");
+      
+      const mimeType = file.type; // Get the file's MIME type (e.g., image/jpeg, image/png)
+      const base64Image = `data:${mimeType};base64,${buffer.toString("base64")}`;
+      
+      const uploadResult = await cloudinary.v2.uploader.upload(base64Image, {
+        folder: "blog_images",
+        public_id: `blog_${Date.now()}`,
+        resource_type: "image",
+      });
 
-      // Ensure directory exists
-      await fs.promises.mkdir(uploadDir, { recursive: true });
-
-      const filename = `${Date.now()}-${file.name}`;
-      const filepath = path.join(uploadDir, filename);
-      await writeFile(filepath, buffer);
-      imageUrl = `/uploads/${filename}`;
+      imageUrl = uploadResult.secure_url; // Get Cloudinary URL
     }
-
     const newPost = new Post({
       title,
       content,

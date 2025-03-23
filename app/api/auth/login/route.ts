@@ -24,7 +24,7 @@ export async function POST(req: Request) {
    const response = NextResponse.json({ message: "Login successful",email:email }, { status: 200 });
    response.headers.set(
      "Set-Cookie",
-     `token=${token}; HttpOnly; Path=/; Max-Age=3600; Secure; SameSite=Strict`
+     `token=${token}; HttpOnly; Path=/; Max-Age=3600; SameSite=None; Secure`
    );
 
    return response;
