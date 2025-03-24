@@ -88,7 +88,7 @@ npm i cloudinary
 ✔ **Bcrypt.js** for secure password hashing.  
 ✔ **Tailwind CSS** for beautiful, responsive UI.  
 ✔ **Fully Responsive** design for mobile and desktop.  
-✔ **Fully Responsive** Implemented Cloudinary to handle image uploads and retrieval, improving media management and scalability.
+✔ **Cloudinary Integration** Implemented Cloudinary to handle image uploads and retrieval, improving media management and scalability.
 
 ---
 
