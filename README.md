@@ -46,7 +46,10 @@ npm install
 Create a `.env.local` file in the root directory and add:
 ```env
 MONGODB_URI=your_mongodb_connection_string
-JWT_SECRET=your_generated_secret_key
+JWT_SECRET=your_jwt_secret_key
+CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
+CLOUDINARY_API_KEY=your_cloudinary_api_key
+CLOUDINARY_API_SECRET=your_cloudinary_api_secret
 ```
 Generate a secure JWT secret key using:
 ```sh
@@ -73,6 +76,7 @@ npx create-next-app@14
 npm i mongoose@latest
 npm i bcryptjs jsonwebtoken
 npm i @types/jsonwebtoken @types/bcryptjs
+npm i cloudinary
 ```
 
 ---
@@ -84,6 +88,7 @@ npm i @types/jsonwebtoken @types/bcryptjs
 ✔ **Bcrypt.js** for secure password hashing.  
 ✔ **Tailwind CSS** for beautiful, responsive UI.  
 ✔ **Fully Responsive** design for mobile and desktop.  
+✔ **Fully Responsive** Implemented Cloudinary to handle image uploads and retrieval, improving media management and scalability.
 
 ---
 
