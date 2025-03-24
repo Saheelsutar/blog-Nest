@@ -2,9 +2,6 @@ import connectDB from "@/db/connectDb";
 import Post from "@/models/Post";
 import { verifyToken } from "@/lib/auth";
 import { NextRequest, NextResponse } from "next/server";
-import fs from "fs";
-import path from "path";
-import { writeFile } from "fs/promises";
 import { cookies } from "next/headers";
 import cloudinary   from 'cloudinary';
 

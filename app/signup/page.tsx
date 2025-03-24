@@ -42,7 +42,7 @@ const Page = () => {
         alert(`Signup failed: ${data.message}`);
       }
     } catch (error) {
-      alert("An error occurred while signing up.");
+      alert("An error occurred while signing up."+error);
     }
   };
 

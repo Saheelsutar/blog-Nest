@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { div } from "framer-motion/client";
 
 interface Post {
   _id: string;
