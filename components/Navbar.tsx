@@ -80,7 +80,7 @@ const Navbar = () => {
         as="button"
         className="dark:bg-black text-white flex items-center space-x-2"
       >
-        <span className="font-semibold">Create A Blog</span>
+        <span className="font-semibold  ">Create A Blog</span>
       </HoverBorderGradient>
           </div>
         </div>

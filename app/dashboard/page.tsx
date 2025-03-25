@@ -1,7 +1,9 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useRef } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import Button from '@mui/material/Button';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 
 interface Post {
   _id: string;
@@ -20,6 +22,10 @@ const Dashboard = () => {
   const [authorId, setAuthorId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const [fileName, setFileName] = useState<string>("");
+
+
 
   const fetchUser = async () => {
     try {
@@ -27,7 +33,7 @@ const Dashboard = () => {
        setLoading(true)
       if (res.status === 401) {
         alert("Session Expired! Login Again"); 
-        router.replace("/login"); // ✅ Redirect only when unauthorized
+        router.replace("/login"); 
         return;
       }
       const data = await res.json();
@@ -37,14 +43,14 @@ const Dashboard = () => {
       }
     } catch (error) {
       console.error("Error fetching user ID", error);
-      router.replace("/login"); // ✅ Fallback redirection in case of error
+      router.replace("/login"); 
     } 
   };
 
 
   useEffect(() => {
     fetchUser();
-  }, []); // ✅ Ensure useEffect only runs once on mount
+  }, []); 
   
   useEffect(() => {
     const fetchPosts = async () => {
@@ -70,6 +76,7 @@ const Dashboard = () => {
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       setImage(e.target.files[0]);
+      setFileName(e.target.files[0].name);
     }
   };
 
@@ -113,22 +120,21 @@ const Dashboard = () => {
   return (
     <div className="relative h-auto bg-slate-950 min-h-screen ">
       <div className="absolute bottom-0 h-full w-full left-0 right-0 top-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px]"></div>
-    <div className="flex relative min-h-screen w-full">
-      <div className="w-[30%] text-white p-5 hidden md:flex md:items-center gap-10 md:flex-col">
-        <div className="flex flex-col justify-center h-[60%]">
-        <h3 className="pt-10 mt-10 bg-clip-text bg-no-repeat text-transparent bg-gradient-to-r py-4 from-purple-500 via-violet-500 to-pink-500 [text-shadow:0_0_rgba(0,0,0,0.1)] font-bold text-3xl ">BlogNest <div className="text-2xl font-semibold py-4">Start Posting Your Own Blogs!</div></h3>
+    <div className="relative">
+    <div className="md:flex w-full justify-around items-center ">
+     
+      <div className="flex flex-col">  {/* left part */}
+        <h3 className="pt-10 mt-10 bg-clip-text bg-no-repeat text-transparent bg-gradient-to-r p-4 from-purple-500 via-violet-500 to-pink-500 [text-shadow:0_0_rgba(0,0,0,0.1)] text-center font-bold text-2xl md:text-3xl ">BlogNest <div className="md:text-2xl text-xl  p-4  text-center font-semibold ">Start Posting Your Own Blogs!</div></h3>
       </div>
-      </div>
-      <main className="flex-1 p-5">
-        <div className=" p-5 border border-slate-600 text-white bg-slate-900 rounded-lg shadow-md mb-6">
+        <div className=" p-4  border border-slate-600 text-white md:w-fit w-[90%]  md:mt-10 mx-auto bg-slate-900 rounded-lg shadow-md mb-6">
           <h2 className="text-xl font-semibold mb-4 ">Upload a New Post</h2>
           <form onSubmit={handleSubmit} className="space-y-4">
             <input
               type="text"
               placeholder="Title"
               value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              className="w-full p-2 border bg-gray-800 placeholder:text-white text-white border-gray-800 rounded"
+              onChange={(e:React.ChangeEvent<HTMLInputElement>) => setTitle(e.target.value)}
+              className="w-full p-2 border  bg-gray-800 placeholder:text-white text-white border-gray-800 rounded"
               required
             />
             <input
@@ -144,27 +150,49 @@ const Dashboard = () => {
               placeholder="Content"
               value={content}
               onChange={(e) => setContent(e.target.value)}
-              className="w-full p-2 border  bg-gray-800 placeholder:text-white text-white border-gray-800 rounded"
+              className="w-full p-2 border bg-gray-800 placeholder:text-white text-white border-gray-800 rounded"
               required
             />
-            <h3 className="text-xl text-white">Upload Image</h3>
-            <input type="file"  onChange={handleImageChange} className="w-fit bg-purple-600" />
+            <input
+  type="file"
+  onChange={handleImageChange}
+  ref={fileInputRef}
+  className="hidden" // Hides the default file input
+/>
+<span className="text-gray-400 text-sm text-center m-4">{fileName}</span>
+<Button
+      component="label"
+      variant="contained"
+      tabIndex={-1}
+      startIcon={<CloudUploadIcon />}
+      onClick={() => fileInputRef.current?.click()}
+      sx={{
+        backgroundColor: "#9333ea", // Tailwind 'purple-600'
+        "&:hover": { backgroundColor: "#7e22ce" }, // Tailwind 'purple-700'
+        color: "white",
+        fontSize:10
+        
+      }}
+  className="w-fit md:text-xl text-sm text-white px-2 py-1 md:px-4 md:py-2 rounded-lg transition"
+    > Upload Image
+</Button>
             <div className="flex items-center justify-center">
             <button
               type="submit"
-              className="bg-blue-600 text-white px-4 py-2 rounded w-fit"
+              className="bg-slate-800 text-white md:px-4 md:py-2 px-2 py-1 text-sm md:text-md rounded w-fit"
             >
               Upload Post
             </button>
             </div>
           </form>
         </div>
+    </div>
 
-        <h1 className="md:text-2xl max-md:text-center max-md:text-lg text-white font-bold">My Posts</h1>
-      {posts.length==0 && <div className="text-gray-400 text-md max-md:text-sm py-4">No Post Yet</div>}
+      <h1 className="md:text-2xl text-center max-md:text-lg text-white font-bold mt-10">My Posts</h1>
+      {posts.length==0 && <div className="text-gray-400 text-md text-center max-md:text-sm py-4">No Post Yet</div>}
         {/* Post List */}
         
-       {posts.length>0 && <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-5">
+       {posts.length>0 && <div className="grid md:grid-cols-2 max-sm:grid-cols-1 lg:grid-cols-3 gap-6 mt-5 pb-2">
           {posts.map((post) => (
             <div key={post._id} className="md:p-6 py-6 px-4 max-md:w-[90%] mx-auto rounded-lg border border-slate-700  shadow-sm hover:bg-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
               {/* Image (if available) */}
@@ -191,7 +219,6 @@ const Dashboard = () => {
           ))}
         </div>
 }
-      </main>
     </div>
     </div>
   );
