@@ -194,7 +194,7 @@ const Dashboard = () => {
         
        {posts.length>0 && <div className="grid md:grid-cols-2 max-sm:grid-cols-1 lg:grid-cols-3 gap-6 mt-5 pb-2">
           {posts.map((post) => (
-            <div key={post._id} className="md:p-6 py-6 px-4 max-md:w-[90%] mx-auto rounded-lg border border-slate-700  shadow-sm hover:bg-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+            <div key={post._id} className="md:p-6 py-6 px-4 max-md:w-[90%] mx-auto rounded-lg border border-slate-700  shadow-sm hover:bg-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 w-[70%]">
               {/* Image (if available) */}
               {post.image && (
                 <div className="w-full h-40 relative">
@@ -211,7 +211,7 @@ const Dashboard = () => {
               {/* View Button */}
               <button
                 onClick={() => router.push(`/post/${post._id}`)}
-                className="bg-blue-600 text-white px-3 py-1 rounded mt-3 w-full"
+                className="bg-blue-600 text-white px-3 py-1 rounded mt-3 w-fit"
               >
                 View
               </button>
