@@ -52,7 +52,7 @@ const Page = () => {
                 key={post._id}
                 className="flex flex-col md:w-[90%] py-8 px-4 max-md:py-2 max-md:px-1 hover:shadow-md overflow-hidden [background:linear-gradient(45deg,#172033,theme(colors.slate.900)_50%,#172033)_padding-box,conic-gradient(from_var(--border-angle),theme(colors.slate.800/.48)_80%,_theme(colors.indigo.500)_86%,_theme(colors.indigo.300)_90%,_theme(colors.indigo.500)_94%,_theme(colors.slate.600/.48))_border-box] rounded-xl border-2 border-transparent animate-border">
                 <img
-                  className="w-full p-2 h-48 object-fit rounded-xl "
+                  className="w-full p-2 h-48 object-cover rounded-xl "
                   src={post.image}
                   alt={post.title}
                 />
