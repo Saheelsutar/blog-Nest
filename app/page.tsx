@@ -9,7 +9,7 @@ const Page = async() => {
         const data = await res.json();
         return <Home posts={data.posts}/>
       } catch (error) {
-        console.error("Error fetching posts:", error);
+        console.error("Error fetching posts(try again):", error);
         return <div>Error loading posts</div>;
       } 
 
